@@ -1,6 +1,7 @@
 import MovieCard from "../components/MovieCard"
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../services/api";
+import { searchMovies, getPopularMovies } from "../services/movieService";
+import { useUserContext } from "../contexts/UserContext";
 import "../css/Home.css"
 
 function Home() {
@@ -8,7 +9,12 @@ function Home() {
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { user } = useUserContext();
+    const isLoggedIn = user !== null;
+    const username = user?.username;
 
+
+    // Load popular movies on initial render
     useEffect(() => {
         const loadPopularMovies = async () => {
             try {
@@ -43,6 +49,13 @@ function Home() {
     };
 
     return <div className="home">
+        <h1 className="home-title">Welcome to Movie App</h1>
+        {isLoggedIn && <p className="home-subtitle">Explore your favorite movies</p>}
+        <p className="home-description">Search for movies, add to favorites, and more!</p>
+        <br /><br />
+        {isLoggedIn && <p className="home-welcome">Hello, {username}!</p>}
+        <br /><br />
+        
         <form onSubmit={handleSearch} className="search-form">
             <input
                 type="text"
