@@ -7,11 +7,7 @@ dotenv.config();
 
 const register = async (req, res) => {
     try {
-        console.log("Register API is working");
         const { username, email, password } = req.body;
-
-        console.log("Request body:", req.body);
-
 
         // Check if user exists
         const existingUser = await User.findOne({ email });

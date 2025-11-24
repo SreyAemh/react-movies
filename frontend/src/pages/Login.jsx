@@ -21,7 +21,7 @@ function Login() {
         setLoading(true);
         try {
             const response = await loginUser({ email, password });
-            
+            console.log("Login response:", response);
             // Destructure safely
             const { token, user } = response || {};
 
